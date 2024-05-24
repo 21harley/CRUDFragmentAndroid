@@ -18,6 +18,10 @@
         android:id="@+id/deleteFragment"
         android:name="com.example.crudfragmentandroid.ui.delete.DeleteFragment"
         android:label="fragment_delete"
-        tools:layout="@layout/fragment_delete" />
+        tools:layout="@layout/fragment_delete" >
+        <action
+            android:id="@+id/action_deleteFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
 </navigation>
