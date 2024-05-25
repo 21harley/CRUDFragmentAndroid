@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_to_deleteFragment"
             app:destination="@id/deleteFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/deleteFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_delete" >
         <action
             android:id="@+id/action_deleteFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.crudfragmentandroid.ui.add.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment2_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
 
