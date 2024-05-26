@@ -90,62 +90,73 @@
                 android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.913"
+                app:layout_constraintHorizontal_bias="0.897"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionProduct"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/likebutton"
-                android:layout_width="86dp"
-                android:layout_height="64dp"
-                android:text="Button"
+                android:layout_width="66dp"
+                android:layout_height="63dp"
+                android:background="@drawable/heart1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.916"
+                app:layout_constraintHorizontal_bias="0.918"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.032" />
+                app:layout_constraintVertical_bias="0.018" />
 
-            <Button
-                android:id="@+id/buttonAddProduct"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="240dp"
-                android:text="Button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+            <LinearLayout
+                android:id="@+id/containerCountProduct"
+                android:layout_width="171dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="88dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/button4"
+                app:layout_constraintEnd_toStartOf="@+id/textViewAmountAddProduct"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionProduct"
-                app:layout_constraintVertical_bias="0.137" />
+                app:layout_constraintVertical_bias="0.227">
 
-            <Button
-                android:id="@+id/buttonDeleteProduct"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="48dp"
-                android:text="Button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionProduct" />
+                <Button
+                    android:id="@+id/buttonAddProduct"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:background="@android:color/transparent"
+                    />
 
-            <TextView
-                android:id="@+id/textViewAmountProduct"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="14dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/buttonDeleteProduct"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionProduct"
-                app:layout_constraintVertical_bias="0.13" />
+                <TextView
+                    android:id="@+id/textViewAmountProduct"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="0"
+                    />
+
+                <Button
+                    android:id="@+id/buttonDeleteProduct"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom_button_purple_count_add"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="+" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="369dp"
                 android:layout_height="54dp"
                 android:layout_marginBottom="48dp"
-                android:text="Button"
+                android:text="comprar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.619"
