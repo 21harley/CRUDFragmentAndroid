@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.crudfragmentandroid.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.crudfragmentandroid.databinding.FragmentAddBinding
+import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
+import com.example.crudfragmentandroid.dto.producto.Product
+import com.example.crudfragmentandroid.ui.add.recycleradd.RecyclerViewAdd
+import com.example.crudfragmentandroid.ui.add.recycleradd.ViewHolderAdd
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +26,14 @@ class AddFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var recyclerViewAdd: RecyclerViewAdd
+    private  var adoptllmanager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+    private var _binding: FragmentAddBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +46,110 @@ class AddFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add, container, false)
-    }
+    ): View {
 
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
+
+
+
+        initRecyclerView(data())
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+    fun initRecyclerView(list: MutableList<Product>){
+        recyclerViewAdd = RecyclerViewAdd(list)
+        binding.recyclerViewProductAdd.adapter = recyclerViewAdd
+        binding.recyclerViewProductAdd.layoutManager = adoptllmanager
+    }
+    fun data():MutableList<Product>{
+        val listProduct = mutableListOf(
+            Product(
+                "dfsfsdf",
+                "Zapato*A",
+                10,
+                249.99F,
+                "Zapatos deportivos de alta calidad",
+                false,
+                4.2F,
+                "AAA",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
+            Product(
+                "dfsfsdf",
+                "Zapato*A",
+                10,
+                249.99F,
+                "Zapatos deportivos de alta calidad",
+                false,
+                4.2F,
+                "AAA",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
+            Product(
+                "dfsfsdf",
+                "Zapato*A",
+                10,
+                249.99F,
+                "Zapatos deportivos de alta calidad",
+                false,
+                4.2F,
+                "AAA",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
+            Product(
+                "dfsfsdf",
+                "Zapato*A",
+                10,
+                249.99F,
+                "Zapatos deportivos de alta calidad",
+                false,
+                4.2F,
+                "AAA",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
+            Product(
+                "dfsfsdf",
+                "Zapato*A",
+                10,
+                249.99F,
+                "Zapatos deportivos de alta calidad",
+                false,
+                4.2F,
+                "AAA",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
+            Product(
+                "dfsfsdf",
+                "Zapato*A",
+                10,
+                249.99F,
+                "Zapatos deportivos de alta calidad",
+                false,
+                4.2F,
+                "AAA",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            )
+        )
+        return listProduct
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

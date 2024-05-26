@@ -16,16 +16,16 @@ UrlImg
 label=Etiqueta
 * */
 class Product(
-    private var id:String="",
-    private var name:String="",
-    private var amount:Int=0,
-    private var cout:Float=0.0F,
-    private var description:String="",
-    private var like:Boolean=false,
-    private var worth:Float=0.0F,
-    private var brand:String="",
-    private var urlImg:String="",
-    private var label: MutableList<LabelProduct> = mutableListOf()
+     var id:String="",
+     var name:String="",
+     var amount:Int=0,
+     var cout:Float=0.0F,
+     var description:String="",
+     var like:Boolean=false,
+     var worth:Float=0.0F,
+     var brand:String="",
+     var urlImg:String="",
+     var label: MutableList<LabelProduct> = mutableListOf()
 ){
     init {
         printData()
