@@ -13,5 +13,10 @@
             android:id="@+id/deleteFragment"
             android:icon="@drawable/ic_delete"
             android:title="@string/menu_delete" />
+
+        <item
+            android:id="@+id/addFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_add" />
     </group>
 </menu>
