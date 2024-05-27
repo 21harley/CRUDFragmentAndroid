@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.crudfragmentandroid.ui.home.HomeFragment"
-        android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_deleteFragment"
@@ -20,7 +19,6 @@
     <fragment
         android:id="@+id/deleteFragment"
         android:name="com.example.crudfragmentandroid.ui.delete.DeleteFragment"
-        android:label="fragment_delete"
         tools:layout="@layout/fragment_delete" >
 
         <action
@@ -30,7 +28,6 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.crudfragmentandroid.ui.add.AddFragment"
-        android:label="fragment_add"
         tools:layout="@layout/fragment_add" >
         <action
             android:id="@+id/action_addFragment2_to_nav_home"

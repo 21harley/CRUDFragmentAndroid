@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Foco 1 -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#11424242"
+                android:centerColor="@color/color_purple"
+                android:endColor="#00000000"
+                android:gradientRadius="3000"
+                android:type="radial"
+                android:centerX="0.3"
+                android:centerY="0.3" />
+        </shape>
+    </item>
+    <!-- Foco 2 -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="@color/color_purple"
+                android:centerColor="@color/white"
+                android:endColor="#00000000"
+                android:gradientRadius="5000"
+                android:type="radial"
+                android:centerX="0.5"
+                android:centerY="0.2" />
+        </shape>
+    </item>
+    <!-- Foco 3 -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="@color/color_purple"
+                android:centerColor="#11424242"
+                android:endColor="#00000000"
+                android:gradientRadius="3000"
+                android:type="radial"
+                android:centerX="0.5"
+                android:centerY="0.5" />
+        </shape>
+    </item>
+    <!-- Primer degradado -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#11424242"
+                android:endColor="@color/color_purple"
+                android:angle="0" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                android:startColor="@color/color_purple"
+                android:endColor="#11424242"
+                android:angle="75" />
+        </shape>
+    </item>
+</layer-list>
