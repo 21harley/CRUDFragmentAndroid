@@ -11,6 +11,7 @@ import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
 import com.example.crudfragmentandroid.dto.producto.Product
 import com.example.crudfragmentandroid.ui.add.recycleradd.RecyclerViewAdd
 import com.example.crudfragmentandroid.ui.add.recycleradd.ViewHolderAdd
+import com.example.crudfragmentandroid.ui.home.HomeFragment.Companion.valueItem
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,13 +55,18 @@ class AddFragment : Fragment() {
 
         initRecyclerView(data())
         // Inflate the layout for this fragment
+        binding.textViewNameProduct.text = valueItem
         return binding.root
+
     }
     fun initRecyclerView(list: MutableList<Product>){
         recyclerViewAdd = RecyclerViewAdd(list)
         binding.recyclerViewProductAdd.adapter = recyclerViewAdd
         binding.recyclerViewProductAdd.layoutManager = adoptllmanager
     }
+
+
+
     fun data():MutableList<Product>{
         val listProduct = mutableListOf(
             Product(

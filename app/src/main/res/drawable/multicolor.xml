@@ -53,7 +53,7 @@
             <gradient
                 android:startColor="@color/color_purple"
                 android:endColor="#11424242"
-                android:angle="75" />
+                android:angle="45" />
         </shape>
     </item>
 </layer-list>
