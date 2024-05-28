@@ -1,16 +1,18 @@
 package com.example.crudfragmentandroid.ui.add
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.FragmentAddBinding
 import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
 import com.example.crudfragmentandroid.dto.producto.Product
 import com.example.crudfragmentandroid.ui.add.recycleradd.RecyclerViewAdd
-import com.example.crudfragmentandroid.ui.add.recycleradd.ViewHolderAdd
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +29,7 @@ class AddFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var recyclerViewAdd: RecyclerViewAdd
+    private lateinit var productOne:Product
     private  var adoptllmanager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
     private var _binding: FragmentAddBinding? = null
@@ -50,12 +53,50 @@ class AddFragment : Fragment() {
 
         _binding = FragmentAddBinding.inflate(inflater, container, false)
 
+        val listProduct = data()
+        productOne = listProduct[0]
+        initRecyclerView(listProduct)
 
+        //click images
 
-        initRecyclerView(data())
+        updateView(productOne)
+        binding.likebutton.setOnClickListener{
+            Log.i("HOLA",productOne.like.toString())
+            val heart = if(!productOne.like) R.drawable.heart2 else R.drawable.heart1
+            binding.likebutton.setBackgroundResource(heart)
+            productOne.like=!productOne.like
+        }
+
         // Inflate the layout for this fragment
         return binding.root
     }
+    private fun updateView(p:Product){
+        //heart
+        val heart = if(p.like) R.drawable.heart2 else R.drawable.heart1
+        binding.likebutton.setBackgroundResource(heart)
+        binding.likebutton.setOnClickListener{
+            Log.i("HOLA",productOne.like.toString())
+            val heart = if(!productOne.like) R.drawable.heart2 else R.drawable.heart1
+            binding.likebutton.setBackgroundResource(heart)
+            productOne.like=!productOne.like
+        }
+
+        //name producto
+        binding.textViewNameProduct.text = p.name
+
+        //count product
+        "$ ${p.cout} ".also { binding.textViewCout.text = it }
+
+        //load full img
+        Glide
+            .with(this)
+            .load(productOne.urlImg)
+            .centerCrop()
+            .placeholder(R.drawable.ic_launcher_background)
+            .into(binding.imageViewFullProduct);
+
+    }
+
     fun initRecyclerView(list: MutableList<Product>){
         recyclerViewAdd = RecyclerViewAdd(list)
         binding.recyclerViewProductAdd.adapter = recyclerViewAdd

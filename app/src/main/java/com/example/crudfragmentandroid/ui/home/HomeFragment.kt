@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.util.Util
 import com.example.crudfragmentandroid.databinding.FragmentHomeBinding
+import com.example.crudfragmentandroid.dto.repository.ProductRepository
 import com.example.crudfragmentandroid.ui.add.AddFragment
 import com.example.crudfragmentandroid.ui.home.adapter.HomeAdapter
 
@@ -26,17 +27,12 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val listProduct = ProductRepository.returnProductList()
 
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.tvWelcome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return root
     }
 
@@ -46,23 +42,25 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
- val navigation = fun(text:String){
+    val navigation = fun(text: String) {
         val intent = Intent(context, AddFragment::class.java)
         startActivity(intent)
     }
-
+}
+/*
     fun observer(){
         binding.rvProduct.setOnClickListener{
             navigation()
         }
     }
     fun OnItemCick(position:Int){
-        val selectImgProduct = li
+      //  val selectImgProduct = li
 
 
     }
     fun initRecyclerView(){
-        val adapter = HomeAdapter()
-        binding.rvProduct.adapter
+        //val adapter = HomeAdapter()
+        //binding.rvProduct.adapter
     }
 }
+*/
