@@ -3,7 +3,7 @@ package com.example.crudfragmentandroid.dto.labelproduct
 import android.util.Log
 
 class LabelProduct(
-    private var name:String=""
+    var name:String=""
 ) {
     init {
         printData()

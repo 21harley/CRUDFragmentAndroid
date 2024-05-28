@@ -23,16 +23,33 @@ class HomeAdapter(private var myList: List<Product>,private val nav: (String) ->
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.render(myList[position],nav)
     }
+
+    fun updateData(newList: List<Product>) {
+        myList = newList
+        notifyDataSetChanged()
+    }
 }
 
 class MyViewHolder(view:View) : RecyclerView.ViewHolder(view) {
     private val binding= ItemHomeImgBinding.bind(view)
     fun render(product: Product,nav: (String) -> Unit ) {
-        binding.price.text = product.cout.toString()
-        binding.model.text = product.name
-        binding.value.text = product.worth.toString()
-        Picasso.get().load(product.urlImg).into(binding.img)
-//
-        binding.img.setOnClickListener { nav.invoke(product.name) }
+        with(binding) {
+            price.text = product.cout.toString()
+            model.text = product.name
+            value.text = product.worth.toString()
+            Picasso.get().load(product.urlImg).into(img)
+
+            img.setOnClickListener { nav.invoke(product.name) }
+
+            imgHearLineRed.setOnClickListener {
+                imgHearLineRed.visibility = View.INVISIBLE
+                imgHearLineGrey.visibility = View.VISIBLE
+            }
+
+            imgHearLineGrey.setOnClickListener {
+                imgHearLineGrey.visibility = View.INVISIBLE
+                imgHearLineRed.visibility = View.VISIBLE
+            }
+        }
     }
 }

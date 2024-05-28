@@ -47,6 +47,8 @@ class AddFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(
@@ -199,23 +201,42 @@ class AddFragment : Fragment() {
         )
         return listProduct
     }
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        private const val ARG_NAME = "name"
+        private const val ARG_DESCRIPTION = "description"
+        private const val ARG_COUT = "cout"
+        private const val ARG_WORTH = "worth"
+        private const val ARG_URL_IMG = "urlImg"
+
+        fun newInstance(name: String, description: String, cout: Float, worth: Float, urlImg: String) =
             AddFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(ARG_NAME, name)
+                    putString(ARG_DESCRIPTION, description)
+                    putFloat(ARG_COUT, cout)
+                    putFloat(ARG_WORTH, worth)
+                    putString(ARG_URL_IMG, urlImg)
                 }
             }
     }
+//    companion object {
+//        /**
+//         * Use this factory method to create a new instance of
+//         * this fragment using the provided parameters.
+//         *
+//         * @param param1 Parameter 1.
+//         * @param param2 Parameter 2.
+//         * @return A new instance of fragment AddFragment.
+//         */
+//        // TODO: Rename and change types and number of parameters
+//        @JvmStatic
+//        fun newInstance(param1: String, param2: String) =
+//            AddFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
+//                }
+//            }
+//    }
 }

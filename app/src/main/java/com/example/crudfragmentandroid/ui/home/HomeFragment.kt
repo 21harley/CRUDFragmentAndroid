@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.example.crudfragmentandroid.databinding.FragmentHomeBinding
 import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
@@ -40,9 +41,34 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+        binding.homeSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterProducts(newText)
+                return true
+            }
+        })
+
+    }
 
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    private fun filterProducts(query: String?) {
+        query?.let { searchTerm ->
+            val filteredList = data().filter { product ->
+                product.label.any { label ->
+                    label.name.contains(searchTerm, ignoreCase = true)
+                }
+            }
+            adapter.updateData(filteredList)
+        }
     }
 
 
@@ -58,7 +84,6 @@ class HomeFragment : Fragment() {
         valueItem = text
         startActivity(intent)
     }
-}
 
 
     private fun data(): List<Product> {
@@ -69,13 +94,16 @@ class HomeFragment : Fragment() {
                 50,
                 150.000F,
                 "Color: \n" +
-                        "Blanco/Blanco/Gris Lobo\n" +
+                        "Negro\n" +
                         "Estilo: DV0788-100\n" +
                         "Origen: \n" + "Vietnam",
                 false,
                 4.3F,
                 "Nike",
-                "https://nikearprod.vtexassets.com/arquivos/ids/659742-800-800?width=800&height=800&aspect=true"
+                "https://www.digitalsport.com.ar/files/products/5aa2b5a2a073f-436322-1200x1200.jpg",
+                mutableListOf(
+                    LabelProduct("Sport")
+                )
             ),
             Product(
                 "00001",
@@ -87,11 +115,14 @@ class HomeFragment : Fragment() {
                 Blanco/Blanco/Gris Lobo
                 Estilo: DV0788-100
                 Origen: Vietnam
-            """.trimIndent(),
+                """.trimIndent(),
                 false,
                 4.3F,
                 "Nike",
                 "https://nikearprod.vtexassets.com/arquivos/ids/659742-800-800?width=800&height=800&aspect=true",
+                mutableListOf(
+                    LabelProduct("Sport")
+                )
             ),
             Product(
                 "00002",
@@ -107,7 +138,12 @@ class HomeFragment : Fragment() {
                 true,
                 4.7F,
                 "Adidas",
-                "https://assets.adidas.com/images/w_600,f_auto,q_auto/ef8f64d290e8460192d6ac8400af8a98_9366/Ultraboost_22_Zapatos_Negro_GY6238_01_standard.jpg"
+                "https://s3.sa-east-1.amazonaws.com/www.vaypol.com.ar/variants/im105x3xtehbedr2tx8glva8kgwz/c77c2a06864ac9aca38dc5bd9371de015471edcdbf322dfb14411689bf968ae5",
+                mutableListOf(
+                    LabelProduct("Sport"),
+                    LabelProduct("Running")
+
+                )
             ),
             Product(
                 "00003",
@@ -123,8 +159,11 @@ class HomeFragment : Fragment() {
                 true,
                 4.5F,
                 "Puma",
-                "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa/global/374758/02/sv01/fnd/PNA/fmt/png"
-
+                "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa/global/374758/02/sv01/fnd/PNA/fmt/png",
+                mutableListOf(
+                    LabelProduct("Running"),
+                    LabelProduct("Sport")
+                )
             ),
             Product(
                 "00004",
@@ -140,10 +179,13 @@ class HomeFragment : Fragment() {
                 false,
                 4.6F,
                 "New Balance",
-                "https://m.media-amazon.com/images/I/71H5JNSdhEL._AC_SL1500_.jpg"
+                "https://img.eobuwie.cloud/eob_product_656w_656h(6/d/a/a/6daa2188c3eccf0252c45d7e5c29ce914e22a50f_0000200627724_02_ws_1,jpg)/sneakers-new-balance-ml574lpk-negro.jpg",
+                mutableListOf(
+                    LabelProduct("Port")
+                )
             ),
             Product(
-                "00005",
+                "00025",
                 "Reebok Classic",
                 25,
                 130.000F,
@@ -156,7 +198,10 @@ class HomeFragment : Fragment() {
                 true,
                 4.4F,
                 "Reebok",
-                "https://reebokarg.vtexassets.com/arquivos/ids/212063-800-800?v=638419355996300000&width=800&height=800&aspect=true"
+                "https://reebokarg.vtexassets.com/arquivos/ids/212063-800-800?v=638419355996300000&width=800&height=800&aspect=true",
+                mutableListOf(
+                    LabelProduct("Casual")
+                )
             ),
             Product(
                 "00001",
@@ -173,8 +218,12 @@ class HomeFragment : Fragment() {
                 4.3F,
                 "Nike",
                 "https://nikearprod.vtexassets.com/arquivos/ids/699311/DH2920_001_A_PREM.jpg?v=638229667061330000",
+                mutableListOf(
+                    LabelProduct("Sport"),
+                    LabelProduct("Casual")
+                )
 
-                ),
+            ),
             Product(
                 "00002",
                 "Adidas Ultraboost",
@@ -189,9 +238,13 @@ class HomeFragment : Fragment() {
                 true,
                 4.7F,
                 "Adidas",
-                "https://assets.adidas.com/images/w_600,f_auto,q_auto/ef8f64d290e8460192d6ac8400af8a98_9366/Ultraboost_22_Zapatos_Negro_GY6238_01_standard.jpg",
+                "https://ideacdn.net/idea/ab/68/myassets/products/845/adidas-erkek-ayakkabi-modelleri.jpg?revision=1711982636",
+                mutableListOf(
+                    LabelProduct("Running"),
+                    LabelProduct("Sport")
+                )
 
-                ),
+            ),
             Product(
                 "00003",
                 "Puma RS-X",
@@ -199,33 +252,40 @@ class HomeFragment : Fragment() {
                 120.000F,
                 """
                 Color: 
-                Blanco/Azul/Rojo
+                Blanco/Gris
                 Estilo: 374758-02
                 Origen: India
             """.trimIndent(),
                 true,
                 4.5F,
                 "Puma",
-                "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa/global/374758/02/sv01/fnd/PNA/fmt/png",
-
-                ),
+                "https://http2.mlstatic.com/D_920409-MLA76292513451_052024-O.jpg",
+                mutableListOf(
+                    LabelProduct("Sport"),
+                    LabelProduct("Runnig")
+                )
+            ),
             Product(
                 "00006",
-                "Asics Gel-Kayano",
+                "Asics EX89",
                 35,
                 160.000F,
                 """
                 Color: 
-                Negro/Gris
+                Blanco/Gris
                 Estilo: 1011A767
                 Origen: Japón
             """.trimIndent(),
                 false,
                 4.8F,
                 "Asics",
-                "https://asics.scene7.com/is/image/asics/1011A767_001?fmt=jpg&wid=800&hei=800&fit=fit,1&qlt=100,0",
+                "https://b.scdn.gr/images/sku_main_images/050150/50150539/fixedratio_20240201213629_asics_ex89_andrika_sneakers_white_slate_grey_1201a476_117.jpeg",
+                mutableListOf(
+                    LabelProduct("Casual"),
+                    LabelProduct("Classic")
+                )
 
-                ),
+            ),
             Product(
                 "00007",
                 "Under Armour HOVR",
@@ -233,14 +293,17 @@ class HomeFragment : Fragment() {
                 170.000F,
                 """
                 Color: 
-                Azul/Blanco
+              Blanco/Rojo/Verde
                 Estilo: 3021950
                 Origen: Vietnam
             """.trimIndent(),
                 true,
                 4.6F,
                 "Under Armour",
-                "https://underarmour.scene7.com/is/image/Underarmour/3021950?fmt=jpg&wid=800&hei=800&fit=fit,1&qlt=100,0",
+                "https://www.innovasport.com/medias/IS-3024271-106-4.jpg?context=bWFzdGVyfGltYWdlc3wxMjA1MTl8aW1hZ2UvanBlZ3xpbWFnZXMvaDFlL2hhYi8xMDcwODU2OTIyNzI5NC5qcGd8MTU0OGIyNWE1YmEzZTcwNTg0MGExMzk3NTllYzlhOTYyMjRlMzU3Nzc0NzIxYmRiMDkyMDU5MTVhNjJmM2EzOQ",
+                mutableListOf(
+                    LabelProduct("Running")
+                )
             ),
             Product(
                 "00008",
@@ -256,9 +319,13 @@ class HomeFragment : Fragment() {
                 false,
                 4.5F,
                 "Saucony",
-                "https://saucony.scene7.com/is/image/Saucony/2044-367?fmt=jpg&wid=800&hei=800&fit=fit,1&qlt=100,0",
+                "https://cdn.shopify.com/s/files/1/0451/5456/6312/files/S70722-2_5.jpg?v=1696262778",
+                mutableListOf(
+                    LabelProduct("Zapato"),
+                    LabelProduct("Classic")
+                )
 
-                ),
+            ),
             Product(
                 "00009",
                 "Fila Disruptor II",
@@ -274,6 +341,9 @@ class HomeFragment : Fragment() {
                 4.2F,
                 "Fila",
                 "https://fila.scene7.com/is/image/Fila/5FM00544?fmt=jpg&wid=800&hei=800&fit=fit,1&qlt=100,0",
+                mutableListOf(
+                    LabelProduct("Sport")
+                )
             ),
             Product(
                 "00010",
@@ -290,10 +360,13 @@ class HomeFragment : Fragment() {
                 4.7F,
                 "Converse",
                 "https://converse.scene7.com/is/image/Converse/M9160?fmt=jpg&wid=800&hei=800&fit=fit,1&qlt=100,0",
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
 
-                ),
+            ),
             Product(
-                "00001",
+                "00011",
                 "Nike AF1",
                 50,
                 150.000F,
@@ -306,11 +379,13 @@ class HomeFragment : Fragment() {
                 false,
                 4.3F,
                 "Nike",
-                "https://nikearprod.vtexassets.com/arquivos/ids/659742-800-800?width=800&height=800&aspect=true",
-
-                ),
+                "https://m.media-amazon.com/images/I/61bFNDVpfxL._AC_SL1500_.jpg",
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
             Product(
-                "00002",
+                "00012",
                 "Nike Air Max 270",
                 40,
                 180.000F,
@@ -324,10 +399,13 @@ class HomeFragment : Fragment() {
                 4.8F,
                 "Nike",
                 "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/fb5ef086-0e67-4f45-9c8e-6f6c1b90f9d6/air-max-270-mens-shoes-KkLcGR.png",
-
-                ),
+                mutableListOf(
+                    LabelProduct("Zapatillas"),
+                    LabelProduct("Sport")
+                )
+            ),
             Product(
-                "00003",
+                "00013",
                 "Nike Dunk Low",
                 35,
                 120.000F,
@@ -341,10 +419,12 @@ class HomeFragment : Fragment() {
                 4.7F,
                 "Nike",
                 "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/fe76c68d-4bb6-4f08-ae6a-9b5e2e450e8d/dunk-low-mens-shoes-DD1391-100.png",
-
-                ),
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
             Product(
-                "00004",
+                "00014",
                 "Air Jordan 1 Mid",
                 50,
                 160.000F,
@@ -358,10 +438,12 @@ class HomeFragment : Fragment() {
                 4.6F,
                 "Jordan",
                 "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/52cf8c1a-0a37-4b8b-9bb2-84b8c0333dc0/air-jordan-1-mid-mens-shoes-8GSFj4.png",
-
-                ),
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
             Product(
-                "00005",
+                "00015",
                 "Air Jordan 4 Retro",
                 30,
                 200.000F,
@@ -375,10 +457,12 @@ class HomeFragment : Fragment() {
                 4.9F,
                 "Jordan",
                 "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/cd85d4cf-3e28-43e4-8206-3dff3feacb7b/air-jordan-4-retro-mens-shoes-308497-103.png",
-
-                ),
+                mutableListOf(
+                    LabelProduct("Zapato")
+                )
+            ),
             Product(
-                "00006",
+                "00016",
                 "Vans Old Skool",
                 60,
                 100.000F,
@@ -392,10 +476,12 @@ class HomeFragment : Fragment() {
                 4.5F,
                 "Vans",
                 "https://www.vans.com/media/catalog/product/6/0/600200160.jpg",
-
-                ),
+                mutableListOf(
+                    LabelProduct("Zapatillas de moda")
+                )
+            ),
             Product(
-                "00007",
+                "00017",
                 "Vans Sk8-Hi",
                 40,
                 120.000F,
@@ -409,9 +495,14 @@ class HomeFragment : Fragment() {
                 4.7F,
                 "Vans",
                 "https://www.vans.com/media/catalog/product/6/0/600200200.jpg",
+                mutableListOf(
+                    LabelProduct("Zapatillas de moda"),
+                    LabelProduct("Sport")
+
+                )
             ),
             Product(
-                "00008",
+                "00018",
                 "Vans Slip-On",
                 50,
                 80.000F,
@@ -426,12 +517,75 @@ class HomeFragment : Fragment() {
                 "Vans",
                 "https://www.vans.com/media/catalog/product/6/0/600200140.jpg",
                 mutableListOf(
-                    LabelProduct("Zapato")
+                    LabelProduct("Zapatillas de moda")
+                )
+            ),
+            Product(
+                "00019",
+                "Reebok Pump",
+                35,
+                130.000F,
+                """
+                Color: 
+                Negro/Azul
+                Estilo: RP001
+                 Origen: Vietnam
+                """.trimIndent(),
+                true,
+                4.4F,
+                "Reebok",
+                "https://s3.sa-east-1.amazonaws.com/www.vaypol.com.ar/variants/qmpc7yuh047jv949etsoohez9po6/c77c2a06864ac9aca38dc5bd9371de015471edcdbf322dfb14411689bf968ae5",
+                mutableListOf(
+                    LabelProduct("Zapatilla"),
+                    LabelProduct("Reebok"),
+                    LabelProduct("Sport")
+                )
+            ),
+            Product(
+                "00019",
+                "Reebok Pump",
+                35,
+                130.000F,
+                """
+                Color: 
+                 Blanco/Azul
+                  Estilo: RP001
+                 Origen: Vietnam
+                  """.trimIndent(),
+                true,
+                4.4F,
+                "Reebok",
+                "https://media.sivasdescalzo.com/media/catalog/product/H/R/HR0035_sivasdescalzo-Reebok-PUMP_OMNI_ZONE_II-1661768102-1.jpg?quality=70&auto=webp&fit=bounds&width=420",
+                mutableListOf(
+                    LabelProduct("Zapatilla"),
+                    LabelProduct("Reebok"),
+                    LabelProduct("Sport")
+                )
+            ),
+            Product(
+                "00020",
+                "Reebok Pump",
+                35,
+                130.000F,
+                """
+                 Color: 
+                Blanco/Azul
+                  Estilo: RP001
+                Origen: Vietnam
+                  """.trimIndent(),
+                true,
+                4.4F,
+                "Reebok",
+                "https://m.media-amazon.com/images/I/51mkQlHP4JL._AC_SL1100_.jpg",
+                mutableListOf(
+                    LabelProduct("Zapatilla"),
+                    LabelProduct("Reebok"),
+                    LabelProduct("Sport")
                 )
             )
         )
         return products
 
     }
-
+}
 

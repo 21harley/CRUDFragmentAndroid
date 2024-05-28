@@ -40,7 +40,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="8dp"
                 android:elevation="20dp"
-                android:visibility="visible"
+                android:onClick="onHeartIconClicked"
                 android:src="@drawable/heart_line_grey1" />
 
             <ImageView
@@ -51,7 +51,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
                 android:elevation="10dp"
-                android:visibility="invisible"
+                android:visibility="gone"
+                android:onClick="onHeartIconClicked"
                 android:src="@drawable/heart_red" />
 
         </FrameLayout>
