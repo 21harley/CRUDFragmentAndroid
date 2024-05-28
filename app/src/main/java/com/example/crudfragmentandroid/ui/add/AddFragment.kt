@@ -12,10 +12,9 @@ import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.FragmentAddBinding
 import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
 import com.example.crudfragmentandroid.dto.producto.Product
+import com.example.crudfragmentandroid.dto.repository.ProductRepository
 import com.example.crudfragmentandroid.ui.add.recycleradd.RecyclerViewAdd
-import com.example.crudfragmentandroid.ui.add.recycleradd.ViewHolderAdd
-import com.example.crudfragmentandroid.ui.home.HomeFragment.Companion.valueItem
-
+import com.example.crudfragmentandroid.ui.core.customdialog.CustomDialog
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +31,9 @@ class AddFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var recyclerViewAdd: RecyclerViewAdd
+    private var listProduct= ProductRepository.returnProductList()
     private lateinit var productOne:Product
+    private var productQuantity=1
     private  var adoptllmanager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
     private var _binding: FragmentAddBinding? = null
@@ -47,8 +48,6 @@ class AddFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
     }
 
     override fun onCreateView(
@@ -58,7 +57,6 @@ class AddFragment : Fragment() {
 
         _binding = FragmentAddBinding.inflate(inflater, container, false)
 
-        val listProduct = data()
         productOne = listProduct[0]
         initRecyclerView(listProduct)
 
@@ -73,10 +71,23 @@ class AddFragment : Fragment() {
         }
 
         // Inflate the layout for this fragment
-        binding.textViewNameProduct.text = valueItem
         return binding.root
-
     }
+    fun initRecyclerView(list: MutableList<Product>){
+        recyclerViewAdd = RecyclerViewAdd(list,call = {call(it)})
+        binding.recyclerViewProductAdd.adapter = recyclerViewAdd
+        binding.recyclerViewProductAdd.layoutManager = adoptllmanager
+    }
+
+    private fun call(i:Int){
+        Log.i("HOLA",i.toString())
+        productQuantity = 1
+        productOne=listProduct[i]
+        updateView(
+           listProduct[i]
+        )
+    }
+
     private fun updateView(p:Product){
         //heart
         val heart = if(p.like) R.drawable.heart2 else R.drawable.heart1
@@ -94,149 +105,85 @@ class AddFragment : Fragment() {
         //count product
         "$ ${p.cout} ".also { binding.textViewCout.text = it }
 
+        //description produt
+        binding.textViewDescriptionProduct.text = p.description
+
+        binding.textViewAmountAddProductText.text = p.worth.toString()
         //load full img
         Glide
             .with(this)
-            .load(productOne.urlImg)
+            .load(p.urlImg)
             .centerCrop()
             .placeholder(R.drawable.ic_launcher_background)
             .into(binding.imageViewFullProduct);
 
+        if (p.amount>0) binding.textViewAmountProduct.text = "1"
+
+        binding.buttonAddProduct.setOnClickListener {
+            if (productOne.amount>=productQuantity + 1){
+                Log.i("Hola","click"+productQuantity.toString())
+                Log.i("Hola","click"+productOne.amount.toString())
+                updateAmountIncrement(1)
+                val result = p.cout * productQuantity
+                binding.textViewCout.text = "$ ${"%.2f".format(result)}"
+            }
+        }
+
+        binding.buttonDeleteProduct.setOnClickListener {
+            if (productQuantity - 1> 0){
+                updateAmountIncrement(-1)
+                val result = p.cout * productQuantity
+                binding.textViewCout.text = "$ ${"%.2f".format(result)}"
+            }
+        }
+
+            binding.addToCart.setOnClickListener {
+                Log.i("HOLA","Comprar")
+                val newProduct = productOne.clone()
+                newProduct.amount -= productQuantity
+                if(ProductRepository.updateProductList(productOne,newProduct)){
+                    ProductRepository.addProductCar(productOne, productQuantity)
+                    CustomDialog(
+                        "Se agrego al carrito",
+                        "pagar",
+                        "continuar comprando",
+                        {},{}
+                    ).show(parentFragmentManager,"Init_Dialog_Maintenace")
+                    updateAmount(1)
+                    listProduct= ProductRepository.returnProductList()
+                    val pos = listProduct.indexOf(newProduct)
+                    productOne = listProduct[pos]
+                }
+            }
+
     }
 
-    fun initRecyclerView(list: MutableList<Product>){
-        recyclerViewAdd = RecyclerViewAdd(list)
-        binding.recyclerViewProductAdd.adapter = recyclerViewAdd
-        binding.recyclerViewProductAdd.layoutManager = adoptllmanager
+    fun updateAmountIncrement(value:Int){
+        productQuantity+=value
+        binding.textViewAmountProduct.text = productQuantity.toString()
     }
-
-
-
-    fun data():MutableList<Product>{
-        val listProduct = mutableListOf(
-            Product(
-                "dfsfsdf",
-                "Zapato*A",
-                10,
-                249.99F,
-                "Zapatos deportivos de alta calidad",
-                false,
-                4.2F,
-                "AAA",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
-                mutableListOf(
-                    LabelProduct("Zapato")
-                )
-            ),
-            Product(
-                "dfsfsdf",
-                "Zapato*A",
-                10,
-                249.99F,
-                "Zapatos deportivos de alta calidad",
-                false,
-                4.2F,
-                "AAA",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
-                mutableListOf(
-                    LabelProduct("Zapato")
-                )
-            ),
-            Product(
-                "dfsfsdf",
-                "Zapato*A",
-                10,
-                249.99F,
-                "Zapatos deportivos de alta calidad",
-                false,
-                4.2F,
-                "AAA",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
-                mutableListOf(
-                    LabelProduct("Zapato")
-                )
-            ),
-            Product(
-                "dfsfsdf",
-                "Zapato*A",
-                10,
-                249.99F,
-                "Zapatos deportivos de alta calidad",
-                false,
-                4.2F,
-                "AAA",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
-                mutableListOf(
-                    LabelProduct("Zapato")
-                )
-            ),
-            Product(
-                "dfsfsdf",
-                "Zapato*A",
-                10,
-                249.99F,
-                "Zapatos deportivos de alta calidad",
-                false,
-                4.2F,
-                "AAA",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
-                mutableListOf(
-                    LabelProduct("Zapato")
-                )
-            ),
-            Product(
-                "dfsfsdf",
-                "Zapato*A",
-                10,
-                249.99F,
-                "Zapatos deportivos de alta calidad",
-                false,
-                4.2F,
-                "AAA",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7BAAJ3_FAJGIn1-5TnEGZA09sW1Q6qKquHYU5KBcpw&s",
-                mutableListOf(
-                    LabelProduct("Zapato")
-                )
-            )
-        )
-        return listProduct
+    fun updateAmount(value:Int){
+        productQuantity=value
+        binding.textViewAmountProduct.text = productQuantity.toString()
     }
 
     companion object {
-        private const val ARG_NAME = "name"
-        private const val ARG_DESCRIPTION = "description"
-        private const val ARG_COUT = "cout"
-        private const val ARG_WORTH = "worth"
-        private const val ARG_URL_IMG = "urlImg"
-
-        fun newInstance(name: String, description: String, cout: Float, worth: Float, urlImg: String) =
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment AddFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
             AddFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_NAME, name)
-                    putString(ARG_DESCRIPTION, description)
-                    putFloat(ARG_COUT, cout)
-                    putFloat(ARG_WORTH, worth)
-                    putString(ARG_URL_IMG, urlImg)
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
             }
     }
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment AddFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            AddFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
 }

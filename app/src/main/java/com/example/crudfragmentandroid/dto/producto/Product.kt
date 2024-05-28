@@ -43,4 +43,22 @@ class Product(
     fun removeLabel(labelProduct: LabelProduct) {
         this.label.remove(labelProduct)
     }
+
+    // Method to clone the Product object
+    fun clone(): Product {
+        // Create a deep copy of the label list
+        val clonedLabelList = this.label.map { it.clone() }.toMutableList()
+        return Product(
+            id = this.id,
+            name = this.name,
+            amount = this.amount,
+            cout = this.cout,
+            description = this.description,
+            like = this.like,
+            worth = this.worth,
+            brand = this.brand,
+            urlImg = this.urlImg,
+            label = clonedLabelList
+        )
+    }
 }

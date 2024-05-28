@@ -15,14 +15,11 @@ import com.example.crudfragmentandroid.ui.delete.adapter.recyclerdelete.AdapterD
 class DeleteFragment : Fragment() {
     private lateinit var binding: FragmentDeleteBinding
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = FragmentDeleteBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
 
         initRecyclerDelete()
-
     }
 
     override fun onCreateView(

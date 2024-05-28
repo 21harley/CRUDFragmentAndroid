@@ -43,6 +43,7 @@
                 android:layout_width="174dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="12dp"
+                android:textSize="22sp"
                 android:text="TextView"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,17 +53,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/recyclerViewProductAdd"
                 app:layout_constraintVertical_bias="0.032" />
 
-            <TextView
-                android:id="@+id/textViewsSubTitleAddProduct"
-                android:layout_width="145dp"
-                android:layout_height="28dp"
-                android:layout_marginBottom="416dp"
-                android:text="TextView"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.097"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textViewDescriptionProduct"
@@ -78,32 +68,48 @@
 
             <TextView
                 android:id="@+id/textViewCout"
-                android:layout_width="99dp"
-                android:layout_height="44dp"
+                android:layout_width="158dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="29dp"
                 android:layout_marginBottom="448dp"
-                android:textSize="24dp"
                 android:text="TextView"
                 android:textColor="@color/black"
+                android:textSize="24sp"
+                android:gravity="end"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.903"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerViewProductAdd" />
 
-            <TextView
+
+            <LinearLayout
                 android:id="@+id/textViewAmountAddProduct"
-                android:layout_width="99dp"
-                android:layout_height="44dp"
-                android:layout_marginBottom="240dp"
-                android:text="TextView"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="34dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/textViewDescriptionProduct"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.897"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionProduct"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewCout"
+                app:layout_constraintVertical_bias="1.0">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/star_yellow" />
+
+                <TextView
+                    android:id="@+id/textViewAmountAddProductText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4.8"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/likebutton"
@@ -122,49 +128,47 @@
                 android:layout_width="171dp"
                 android:layout_height="54dp"
                 android:layout_marginTop="38dp"
-                android:layout_marginEnd="88dp"
+                android:layout_marginEnd="144dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/button4"
                 app:layout_constraintEnd_toStartOf="@+id/textViewAmountAddProduct"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionProduct"
-                app:layout_constraintVertical_bias="0.227">
+                app:layout_constraintVertical_bias="0.0">
 
                 <Button
-                    android:id="@+id/buttonAddProduct"
+                    android:id="@+id/buttonDeleteProduct"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:background="@android:color/transparent"
                     android:gravity="center"
                     android:text="-"
-                    android:textSize="18sp"
                     android:textColor="@color/black"
-                    android:background="@android:color/transparent"
-                    />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textViewAmountProduct"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:gravity="center"
-                    android:textSize="25sp"
                     android:text="0"
                     android:textColor="@color/black"
-                    />
+                    android:textSize="25sp" />
 
                 <Button
-                    android:id="@+id/buttonDeleteProduct"
+                    android:id="@+id/buttonAddProduct"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textColor="@color/white"
                     android:background="@drawable/custom_button_purple_count_add"
                     android:gravity="center"
-                    android:textSize="18sp"
-                    android:text="+" />
+                    android:text="+"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/addToCart"
                 android:layout_width="369dp"
                 android:layout_height="54dp"
                 android:layout_marginBottom="48dp"
@@ -175,7 +179,7 @@
                 app:layout_constraintHorizontal_bias="0.619"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionProduct"
-                app:layout_constraintVertical_bias="0.591" />
+                app:layout_constraintVertical_bias="0.521" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
