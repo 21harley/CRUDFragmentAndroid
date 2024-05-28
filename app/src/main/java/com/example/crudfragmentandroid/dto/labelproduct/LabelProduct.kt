@@ -11,4 +11,9 @@ class LabelProduct(
     private fun printData(){
         Log.i("Data",this.name)
     }
+    fun clone(): LabelProduct {
+        return LabelProduct(
+            name = this.name
+        )
+    }
 }
