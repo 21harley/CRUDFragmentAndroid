@@ -1,5 +1,6 @@
 package com.example.crudfragmentandroid.dto.repository
 
+import com.example.crudfragmentandroid.dto.ProductMock
 import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
 import com.example.crudfragmentandroid.dto.producto.Product
 
@@ -64,5 +65,12 @@ object ProductRepository {
     }
     fun returnLabelProductList(): MutableList<LabelProduct> {
         return labelProductList
+    }
+
+    //homeProducto
+    private val productMock = ProductMock()
+
+    fun getProducts(): List<Product> {
+        return productMock.getProducts()
     }
 }
