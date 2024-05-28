@@ -17,7 +17,7 @@
     <item>
         <shape>
             <gradient
-                android:startColor="@color/color_purple"
+                android:startColor="#906133BD"
                 android:centerColor="@color/white"
                 android:endColor="#00000000"
                 android:gradientRadius="5000"
@@ -30,7 +30,7 @@
     <item>
         <shape>
             <gradient
-                android:startColor="@color/color_purple"
+                android:startColor="#7E6133BD"
                 android:centerColor="#11424242"
                 android:endColor="#00000000"
                 android:gradientRadius="3000"
@@ -44,14 +44,14 @@
         <shape>
             <gradient
                 android:startColor="#11424242"
-                android:endColor="@color/color_purple"
+                android:endColor="#E86133BD"
                 android:angle="0" />
         </shape>
     </item>
     <item>
         <shape>
             <gradient
-                android:startColor="@color/color_purple"
+                android:startColor="#996133BD"
                 android:endColor="#11424242"
                 android:angle="45" />
         </shape>

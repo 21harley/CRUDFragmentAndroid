@@ -24,8 +24,7 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"
         android:background="@drawable/multicolor"
-
-        app:itemIconTint="@color/button_color"
+        app:itemIconTint="#daa616"
         app:itemTextColor="@color/button_color"
         app:theme="@style/ThemeOverlay.AppCompat.Light" />
 
