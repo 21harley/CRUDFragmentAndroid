@@ -8,6 +8,7 @@ import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.ItemHomeImgBinding
 import com.example.crudfragmentandroid.dto.dtohome.DataHomeItem
 import com.example.crudfragmentandroid.dto.producto.Product
+import com.example.crudfragmentandroid.dto.repository.ProductRepository
 import com.squareup.picasso.Picasso
 
 class HomeAdapter(private var myList: List<Product>,private val nav: (String) -> Unit ): RecyclerView.Adapter<MyViewHolder>() {
@@ -32,14 +33,14 @@ class HomeAdapter(private var myList: List<Product>,private val nav: (String) ->
 
 class MyViewHolder(view:View) : RecyclerView.ViewHolder(view) {
     private val binding= ItemHomeImgBinding.bind(view)
-    fun render(product: Product,nav: (String) -> Unit ) {
+    fun render(product: Product,nav: (String) -> Unit) {
         with(binding) {
             price.text = product.cout.toString()
             model.text = product.name
             value.text = product.worth.toString()
             Picasso.get().load(product.urlImg).into(img)
-
-            img.setOnClickListener { nav.invoke(product.name) }
+//            nav.invoke(product.name)
+            img.setOnClickListener { ProductRepository.productSelection = product}
 
             imgHearLineRed.setOnClickListener {
                 imgHearLineRed.visibility = View.INVISIBLE
