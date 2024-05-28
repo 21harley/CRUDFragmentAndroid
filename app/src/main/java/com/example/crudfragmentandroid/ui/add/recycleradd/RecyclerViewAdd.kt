@@ -19,6 +19,7 @@ class RecyclerViewAdd(
 
     override fun onBindViewHolder(holder: ViewHolderAdd, position: Int) {
         holder.render(list[position])
+        itemCount
     }
 
 

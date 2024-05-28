@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.FragmentHomeBinding
 import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
 import com.example.crudfragmentandroid.dto.producto.Product
+import com.example.crudfragmentandroid.dto.repository.ProductRepository
 import com.example.crudfragmentandroid.ui.add.AddFragment
 import com.example.crudfragmentandroid.ui.home.adapter.HomeAdapter
-import com.squareup.picasso.Picasso
+
 
 class HomeFragment : Fragment() {
 
@@ -31,6 +29,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        val listProduct = ProductRepository.returnProductList()
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -39,6 +40,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+
+
 
     }
 
@@ -55,6 +58,7 @@ class HomeFragment : Fragment() {
         valueItem = text
         startActivity(intent)
     }
+}
 
 
     private fun data(): List<Product> {
@@ -429,4 +433,5 @@ class HomeFragment : Fragment() {
         return products
 
     }
-}
+
+
