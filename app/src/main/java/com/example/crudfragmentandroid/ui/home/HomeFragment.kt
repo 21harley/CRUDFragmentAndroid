@@ -1,5 +1,6 @@
 package com.example.crudfragmentandroid.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.util.Util
 import com.example.crudfragmentandroid.databinding.FragmentHomeBinding
+import com.example.crudfragmentandroid.ui.add.AddFragment
+import com.example.crudfragmentandroid.ui.home.adapter.HomeAdapter
 
 class HomeFragment : Fragment() {
 
@@ -29,10 +33,10 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.tvWelcome
+//        homeViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
     }
 
@@ -40,5 +44,25 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+ val navigation = fun(text:String){
+        val intent = Intent(context, AddFragment::class.java)
+        startActivity(intent)
+    }
+
+    fun observer(){
+        binding.rvProduct.setOnClickListener{
+            navigation()
+        }
+    }
+    fun OnItemCick(position:Int){
+        val selectImgProduct = li
+
+
+    }
+    fun initRecyclerView(){
+        val adapter = HomeAdapter()
+        binding.rvProduct.adapter
     }
 }
