@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.crudfragmentandroid.R
@@ -31,7 +32,7 @@ class AddFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var recyclerViewAdd: RecyclerViewAdd
-    private var listProduct= ProductRepository.returnProductList()
+    private var listProduct= ProductRepository.returnProductList().filter { it.like }.toMutableList()
     private lateinit var productOne:Product
     private var productQuantity=1
     private  var adoptllmanager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -57,6 +58,16 @@ class AddFragment : Fragment() {
 
         _binding = FragmentAddBinding.inflate(inflater, container, false)
 
+        Log.i("HOLA","FRAGMENT ADD")
+        val navController = findNavController()
+
+        if (listProduct.size>0) updateViewProducto()
+
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+    fun updateViewProducto(){
+        listProduct= ProductRepository.returnProductList().filter { it.like }.toMutableList()
         productOne = listProduct[0]
         initRecyclerView(listProduct)
 
@@ -68,10 +79,9 @@ class AddFragment : Fragment() {
             val heart = if(!productOne.like) R.drawable.heart2 else R.drawable.heart1
             binding.likebutton.setBackgroundResource(heart)
             productOne.like=!productOne.like
+            ProductRepository.updateProductInList(productOne)
+            updateViewProducto()
         }
-
-        // Inflate the layout for this fragment
-        return binding.root
     }
     fun initRecyclerView(list: MutableList<Product>){
         recyclerViewAdd = RecyclerViewAdd(list,call = {call(it)})
@@ -97,6 +107,8 @@ class AddFragment : Fragment() {
             val heart = if(!productOne.like) R.drawable.heart2 else R.drawable.heart1
             binding.likebutton.setBackgroundResource(heart)
             productOne.like=!productOne.like
+            ProductRepository.updateProductInList(productOne)
+            updateViewProducto()
         }
 
         //name producto
@@ -117,17 +129,33 @@ class AddFragment : Fragment() {
             .placeholder(R.drawable.ic_launcher_background)
             .into(binding.imageViewFullProduct);
 
-        if (p.amount>0) binding.textViewAmountProduct.text = "1"
-
-        binding.buttonAddProduct.setOnClickListener {
-            if (productOne.amount>=productQuantity + 1){
-                Log.i("Hola","click"+productQuantity.toString())
-                Log.i("Hola","click"+productOne.amount.toString())
-                updateAmountIncrement(1)
-                val result = p.cout * productQuantity
-                binding.textViewCout.text = "$ ${"%.2f".format(result)}"
+        if (p.amount>0){
+            binding.containerCountProduct.visibility = View.VISIBLE
+            binding.textErrorAmout.visibility = View.GONE
+            binding.textViewAmountProduct.text = "1"
+            binding.buttonAddProduct.setOnClickListener {
+                if (productOne.amount>=productQuantity + 1){
+                    Log.i("Hola","click"+productQuantity.toString())
+                    Log.i("Hola","click"+productOne.amount.toString())
+                    updateAmountIncrement(1)
+                    val result = p.cout * productQuantity
+                    binding.textViewCout.text = "$ ${"%.2f".format(result)}"
+                }
             }
+
+            binding.buttonDeleteProduct.setOnClickListener {
+                if (productQuantity - 1> 0){
+                    updateAmountIncrement(-1)
+                    val result = p.cout * productQuantity
+                    binding.textViewCout.text = "$ ${"%.2f".format(result)}"
+                }
+            }
+        }else{
+            binding.textErrorAmout.visibility = View.VISIBLE
+            binding.containerCountProduct.visibility = View.GONE
         }
+
+
 
         binding.buttonDeleteProduct.setOnClickListener {
             if (productQuantity - 1> 0){
@@ -138,22 +166,32 @@ class AddFragment : Fragment() {
         }
 
             binding.addToCart.setOnClickListener {
-                Log.i("HOLA","Comprar")
-                val newProduct = productOne.clone()
-                newProduct.amount -= productQuantity
-                if(ProductRepository.updateProductList(productOne,newProduct)){
-                    ProductRepository.addProductCar(productOne, productQuantity)
+                if(productOne.amount>0){
+                    val newProduct = productOne.clone()
+                    newProduct.amount -= productQuantity
+                    if(ProductRepository.updateProductList(productOne,newProduct)){
+                        ProductRepository.addProductCar(productOne, productQuantity)
+                        updateAmount(1)
+                        listProduct= ProductRepository.returnProductList()
+                        val pos = listProduct.indexOf(newProduct)
+                        productOne = listProduct[pos]
+                        updateView(productOne)
+                    }
                     CustomDialog(
                         "Se agrego al carrito",
                         "pagar",
                         "continuar comprando",
                         {},{}
                     ).show(parentFragmentManager,"Init_Dialog_Maintenace")
-                    updateAmount(1)
-                    listProduct= ProductRepository.returnProductList()
-                    val pos = listProduct.indexOf(newProduct)
-                    productOne = listProduct[pos]
+                }else{
+                    CustomDialog(
+                        "Error",
+                        "ir a pagar",
+                        "continuar comprando",
+                        {},{}
+                    ).show(parentFragmentManager,"Init_Dialog_Maintenace")
                 }
+
             }
 
     }

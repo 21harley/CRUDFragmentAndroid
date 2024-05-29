@@ -9,8 +9,6 @@ object ProductRepository {
     private var productCar:MutableList<Pair<Product,Int>>  = mutableListOf()
     private var labelProductList:MutableList<LabelProduct> = mutableListOf()
 
-
-    var productSelection: Product? =null
     //Product List
     fun addProductList(product: Product):Boolean{
         val status=productList.contains(product)
@@ -36,6 +34,15 @@ object ProductRepository {
             return true
         }
         return false
+    }
+    fun updateProductInList(updatedProduct: Product): Boolean {
+        val index = productList.indexOfFirst { it.id == updatedProduct.id }
+        return if (index != -1) {
+            productList[index] = updatedProduct
+            true
+        } else {
+            false
+        }
     }
     fun returnProductList(): MutableList<Product> {
         return productList

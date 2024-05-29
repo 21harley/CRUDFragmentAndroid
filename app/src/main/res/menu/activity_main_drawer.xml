@@ -10,13 +10,14 @@
             android:title="@string/menu_home" />
 
         <item
+            android:id="@+id/addFragment"
+            android:icon="@drawable/add"
+            android:title="@string/menu_add" />
+
+        <item
             android:id="@+id/deleteFragment"
             android:icon="@drawable/sell"
             android:title="@string/menu_delete" />
 
-        <item
-            android:id="@+id/addFragment"
-            android:icon="@drawable/add"
-            android:title="@string/menu_add" />
     </group>
 </menu>

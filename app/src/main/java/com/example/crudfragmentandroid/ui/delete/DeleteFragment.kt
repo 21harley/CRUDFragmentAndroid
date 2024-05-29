@@ -1,6 +1,7 @@
 package com.example.crudfragmentandroid.ui.delete
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,7 @@ class DeleteFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = FragmentDeleteBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-
+        Log.i("HOLA","FRAGMENT DELETE")
         initRecyclerDelete()
     }
 
@@ -38,7 +39,7 @@ class DeleteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fbBack.setOnClickListener {
-            findNavController().navigate(R.id.action_deleteFragment_to_nav_home)
+            //findNavController().navigate(R.id.action_deleteFragment_to_nav_home)
         }
     }
 

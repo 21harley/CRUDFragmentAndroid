@@ -27,6 +27,4 @@
         app:itemIconTint="#daa616"
         app:itemTextColor="@color/button_color"
         app:theme="@style/ThemeOverlay.AppCompat.Light" />
-
-        />
 </androidx.drawerlayout.widget.DrawerLayout>

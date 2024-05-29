@@ -1,8 +1,11 @@
 package com.example.crudfragmentandroid.ui.home.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.ItemHomeImgBinding
@@ -11,7 +14,7 @@ import com.example.crudfragmentandroid.dto.producto.Product
 import com.example.crudfragmentandroid.dto.repository.ProductRepository
 import com.squareup.picasso.Picasso
 
-class HomeAdapter(private var myList: List<Product>,private val nav: (String) -> Unit ): RecyclerView.Adapter<MyViewHolder>() {
+class HomeAdapter(private var myList: List<Product>): RecyclerView.Adapter<MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home_img, parent, false)
         return MyViewHolder(view)
@@ -22,7 +25,7 @@ class HomeAdapter(private var myList: List<Product>,private val nav: (String) ->
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.render(myList[position],nav)
+        holder.render(myList[position])
     }
 
     fun updateData(newList: List<Product>) {
@@ -33,24 +36,27 @@ class HomeAdapter(private var myList: List<Product>,private val nav: (String) ->
 
 class MyViewHolder(view:View) : RecyclerView.ViewHolder(view) {
     private val binding= ItemHomeImgBinding.bind(view)
-    fun render(product: Product,nav: (String) -> Unit) {
+    fun render(product: Product) {
         with(binding) {
             price.text = product.cout.toString()
             model.text = product.name
             value.text = product.worth.toString()
             Picasso.get().load(product.urlImg).into(img)
-//            nav.invoke(product.name)
-            img.setOnClickListener { ProductRepository.productSelection = product}
+            img.setOnClickListener {
 
-            imgHearLineRed.setOnClickListener {
-                imgHearLineRed.visibility = View.INVISIBLE
-                imgHearLineGrey.visibility = View.VISIBLE
             }
 
+            val heart = if(product.like) R.drawable.heart2 else R.drawable.heart1
+            imgHearLineGrey.setBackgroundResource(heart)
+
             imgHearLineGrey.setOnClickListener {
-                imgHearLineGrey.visibility = View.INVISIBLE
-                imgHearLineRed.visibility = View.VISIBLE
+                val heart = if(!product.like) R.drawable.heart2 else R.drawable.heart1
+                imgHearLineGrey.setBackgroundResource(heart)
+                product.like=!product.like
+                ProductRepository.updateProductInList(product)
             }
         }
     }
+
+
 }

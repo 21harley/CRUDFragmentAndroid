@@ -42,20 +42,7 @@
                 android:layout_marginStart="8dp"
                 android:elevation="20dp"
                 android:onClick="onHeartIconClicked"
-                android:src="@drawable/heart_line_grey1" />
-
-            <ImageView
-                android:id="@+id/img_hear_line_red"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="start"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
-                android:elevation="10dp"
-                android:visibility="gone"
-                android:onClick="onHeartIconClicked"
-                android:src="@drawable/heart_red" />
-
+                android:src="@drawable/heart1" />
         </FrameLayout>
 
         <LinearLayout
