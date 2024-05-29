@@ -1,173 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.delete.DeleteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fb_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
-        android:backgroundTint="@color/button_color"
-        android:contentDescription="@string/action_settings"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fb_option"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/button_color"
-        android:contentDescription="@string/action_settings"
-        android:src="@drawable/ic_option"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:text="Checkout"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="120dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="488dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_delete"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@color/button_color"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline1"
-        tools:listitem="@layout/item_recyclerview_delete" />
+        android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_detail_delete"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="#6033B9"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline2">
+        <!-- TODO: Update blank fragment layout -->
 
-        <Button
+        <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="bottom"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/button_color"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
             android:text="Checkout"
-            android:textColor="@color/black" />
-        <TextView
-            android:id="@+id/tv_subtotal_product"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subtotal Boleta"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="start"
-            android:layout_marginStart="20sp"/>
-        <TextView
-            android:id="@+id/tv_subtotal_delivery"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="84dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subtotal Delivery"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="70dp"
-            android:layout_gravity="start"
-            android:layout_marginStart="20sp"/>
-        <View
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="488dp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_delete"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="120dp"
-            android:background="#887575" />
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/white"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline1"
+            tools:listitem="@layout/item_recyclerview_delete" />
 
-        <TextView
-            android:id="@+id/tv_total_buy"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_detail_delete"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="140dp"
-            android:layout_gravity="start"
-            android:layout_marginStart="20sp"/>
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            app:cardBackgroundColor="#6033B9"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2">
 
-        <TextView
-            android:id="@+id/tv_subtotal_product_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$45.990"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="20sp"/>
-        <TextView
-            android:id="@+id/tv_subtotal_delivery_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$15.400"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="70dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="20sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
 
-        <TextView
-            android:id="@+id/tv_total_buy_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$156.400"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="140dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="20sp"/>
+                    <TextView
+                        android:id="@+id/tv_subtotal_product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Subtotal Boleta"
+                        android:textSize="20sp"
+                        android:textColor="@color/white" />
 
 
 
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/tv_subtotal_delivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subtotal Delivery"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#887575" />
 
+                <TextView
+                    android:id="@+id/tv_total_buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_subtotal_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="30dp"
+                    android:text="$45.990"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_subtotal_delivery_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$15.400"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_total_buy_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$156.400"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="20dp" />
+
+                <Button
+                    android:id="@+id/checkout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/button_color"
+                    android:text="Checkout"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,6 +1,5 @@
 package com.example.crudfragmentandroid.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,15 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
-import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.FragmentHomeBinding
-import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
-import com.example.crudfragmentandroid.dto.producto.Product
 import com.example.crudfragmentandroid.dto.repository.ProductRepository
-import com.example.crudfragmentandroid.ui.add.AddFragment
 import com.example.crudfragmentandroid.ui.home.adapter.HomeAdapter
 
 

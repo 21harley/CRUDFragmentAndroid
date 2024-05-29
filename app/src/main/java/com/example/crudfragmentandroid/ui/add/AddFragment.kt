@@ -59,29 +59,16 @@ class AddFragment : Fragment() {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
 
         Log.i("HOLA","FRAGMENT ADD")
-        val navController = findNavController()
 
         if (listProduct.size>0) updateViewProducto()
 
-        // Inflate the layout for this fragment
         return binding.root
     }
     fun updateViewProducto(){
         listProduct= ProductRepository.returnProductList().filter { it.like }.toMutableList()
         productOne = listProduct[0]
         initRecyclerView(listProduct)
-
-        //click images
-
         updateView(productOne)
-        binding.likebutton.setOnClickListener{
-            Log.i("HOLA",productOne.like.toString())
-            val heart = if(!productOne.like) R.drawable.heart2 else R.drawable.heart1
-            binding.likebutton.setBackgroundResource(heart)
-            productOne.like=!productOne.like
-            ProductRepository.updateProductInList(productOne)
-            updateViewProducto()
-        }
     }
     fun initRecyclerView(list: MutableList<Product>){
         recyclerViewAdd = RecyclerViewAdd(list,call = {call(it)})
@@ -179,15 +166,15 @@ class AddFragment : Fragment() {
                     }
                     CustomDialog(
                         "Se agrego al carrito",
-                        "pagar",
-                        "continuar comprando",
+                        "KO",
+                        "",
                         {},{}
                     ).show(parentFragmentManager,"Init_Dialog_Maintenace")
                 }else{
                     CustomDialog(
                         "Error",
-                        "ir a pagar",
-                        "continuar comprando",
+                        "",
+                        "",
                         {},{}
                     ).show(parentFragmentManager,"Init_Dialog_Maintenace")
                 }

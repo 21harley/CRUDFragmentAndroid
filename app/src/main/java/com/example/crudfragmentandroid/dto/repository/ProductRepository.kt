@@ -49,7 +49,7 @@ object ProductRepository {
     }
     // Agregar un producto al carrito
     fun addProductCar(product: Product, quantity: Int): Boolean {
-        val index = productCar.indexOfFirst { it.first == product }
+        val index = productCar.indexOfFirst { it.first.id == product.id }
         return if (index != -1) {
             // Si el producto ya existe, actualizamos la cantidad
             productCar[index] = productCar[index].copy(second = productCar[index].second + quantity)
@@ -63,7 +63,7 @@ object ProductRepository {
 
     // Eliminar un producto del carrito
     fun deleteProductCar(product: Product): Boolean {
-        val index = productCar.indexOfFirst { it.first == product }
+        val index = productCar.indexOfFirst { it.first.id == product.id }
         return if (index != -1) {
             productCar.removeAt(index)
             true
