@@ -21,7 +21,7 @@ class ViewHolderAdd(private val view: View ):RecyclerView.ViewHolder(view) {
             .load(item.urlImg)
             .centerCrop()
             .placeholder(R.drawable.ic_launcher_background)
-            .into(binding.imageView2);
+            .into(binding.imageView2)
         binding.imageView2.setOnClickListener {
             Log.i("HOLA",itemCount.toString())
             call(itemCount)

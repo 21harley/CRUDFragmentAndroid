@@ -8,15 +8,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.example.crudfragmentandroid.databinding.FragmentHomeBinding
+import com.example.crudfragmentandroid.dto.producto.Product
 import com.example.crudfragmentandroid.dto.repository.ProductRepository
 import com.example.crudfragmentandroid.ui.home.adapter.HomeAdapter
+import okhttp3.internal.notifyAll
 
 
 class HomeFragment : Fragment() {
-
-    companion object {
-        var valueItem = ""
-    }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +34,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i("HOLA", "FRAGMENT HOME")
 
-        initRecyclerView()
+        initRecyclerView(ProductRepository.returnProductList())
 
         binding.homeSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -64,15 +62,16 @@ class HomeFragment : Fragment() {
                 product.name.contains(searchTerm, ignoreCase = true) || product.label.any { label ->
                     label.name.contains(searchTerm, ignoreCase = true)
                 }
-            }
-            adapter.updateData(filteredList)
+            }.toMutableList()
+            initRecyclerView(filteredList)
+
         }
     }
 
 
-    fun initRecyclerView() {
+    private fun initRecyclerView(list: MutableList<Product>) {
         adapter = HomeAdapter(
-            ProductRepository.returnProductList()
+            list
         )
         binding.rvProduct.adapter = adapter
     }

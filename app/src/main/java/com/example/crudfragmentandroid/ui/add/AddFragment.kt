@@ -6,12 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.FragmentAddBinding
-import com.example.crudfragmentandroid.dto.labelproduct.LabelProduct
 import com.example.crudfragmentandroid.dto.producto.Product
 import com.example.crudfragmentandroid.dto.repository.ProductRepository
 import com.example.crudfragmentandroid.ui.add.recycleradd.RecyclerViewAdd
@@ -64,13 +62,13 @@ class AddFragment : Fragment() {
 
         return binding.root
     }
-    fun updateViewProducto(){
+    private fun updateViewProducto(){
         listProduct= ProductRepository.returnProductList().filter { it.like }.toMutableList()
         productOne = listProduct[0]
         initRecyclerView(listProduct)
         updateView(productOne)
     }
-    fun initRecyclerView(list: MutableList<Product>){
+    private fun initRecyclerView(list: MutableList<Product>){
         recyclerViewAdd = RecyclerViewAdd(list,call = {call(it)})
         binding.recyclerViewProductAdd.adapter = recyclerViewAdd
         binding.recyclerViewProductAdd.layoutManager = adoptllmanager
@@ -91,8 +89,8 @@ class AddFragment : Fragment() {
         binding.likebutton.setBackgroundResource(heart)
         binding.likebutton.setOnClickListener{
             Log.i("HOLA",productOne.like.toString())
-            val heart = if(!productOne.like) R.drawable.heart2 else R.drawable.heart1
-            binding.likebutton.setBackgroundResource(heart)
+            val heart1:Int = if(!productOne.like) R.drawable.heart2 else R.drawable.heart1
+            binding.likebutton.setBackgroundResource(heart1)
             productOne.like=!productOne.like
             ProductRepository.updateProductInList(productOne)
             updateViewProducto()
@@ -114,7 +112,7 @@ class AddFragment : Fragment() {
             .load(p.urlImg)
             .centerCrop()
             .placeholder(R.drawable.ic_launcher_background)
-            .into(binding.imageViewFullProduct);
+            .into(binding.imageViewFullProduct)
 
         if (p.amount>0){
             binding.containerCountProduct.visibility = View.VISIBLE
@@ -122,11 +120,11 @@ class AddFragment : Fragment() {
             binding.textViewAmountProduct.text = "1"
             binding.buttonAddProduct.setOnClickListener {
                 if (productOne.amount>=productQuantity + 1){
-                    Log.i("Hola","click"+productQuantity.toString())
+                    Log.i("Hola", "click$productQuantity")
                     Log.i("Hola","click"+productOne.amount.toString())
                     updateAmountIncrement(1)
                     val result = p.cout * productQuantity
-                    binding.textViewCout.text = "$ ${"%.2f".format(result)}"
+                    "$ ${"%.2f".format(result)}".also { binding.textViewCout.text = it }
                 }
             }
 
@@ -134,7 +132,7 @@ class AddFragment : Fragment() {
                 if (productQuantity - 1> 0){
                     updateAmountIncrement(-1)
                     val result = p.cout * productQuantity
-                    binding.textViewCout.text = "$ ${"%.2f".format(result)}"
+                    "$ ${"%.2f".format(result)}".also { binding.textViewCout.text = it }
                 }
             }
         }else{
@@ -148,7 +146,7 @@ class AddFragment : Fragment() {
             if (productQuantity - 1> 0){
                 updateAmountIncrement(-1)
                 val result = p.cout * productQuantity
-                binding.textViewCout.text = "$ ${"%.2f".format(result)}"
+                "$ ${"%.2f".format(result)}".also { binding.textViewCout.text = it }
             }
         }
 
@@ -158,7 +156,7 @@ class AddFragment : Fragment() {
                     newProduct.amount -= productQuantity
                     if(ProductRepository.updateProductList(productOne,newProduct)){
                         ProductRepository.addProductCar(productOne, productQuantity)
-                        updateAmount(1)
+                        updateAmount()
                         listProduct= ProductRepository.returnProductList()
                         val pos = listProduct.indexOf(newProduct)
                         productOne = listProduct[pos]
@@ -183,13 +181,13 @@ class AddFragment : Fragment() {
 
     }
 
-    fun updateAmountIncrement(value:Int){
+    private fun updateAmountIncrement(value:Int){
         productQuantity+=value
         binding.textViewAmountProduct.text = productQuantity.toString()
     }
-    fun updateAmount(value:Int){
-        productQuantity=value
-        binding.textViewAmountProduct.text = productQuantity.toString()
+    private fun updateAmount(){
+        productQuantity=1
+        binding.textViewAmountProduct.text = "1"
     }
 
     companion object {

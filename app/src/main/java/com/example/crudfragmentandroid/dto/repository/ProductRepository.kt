@@ -72,6 +72,15 @@ object ProductRepository {
         }
     }
 
+    fun deleteProductCar(): Boolean {
+        return try{
+            productCar = mutableListOf()
+            true
+        }catch (e:Exception){
+            false
+        }
+    }
+
     // Retornar la lista de productos en el carrito
     fun returnProductCar(): MutableList<Pair<Product, Int>> {
         return productCar

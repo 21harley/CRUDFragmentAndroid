@@ -11,6 +11,7 @@ import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.FragmentDeleteBinding
 import com.example.crudfragmentandroid.dto.producto.Product
 import com.example.crudfragmentandroid.dto.repository.ProductRepository
+import com.example.crudfragmentandroid.ui.core.customdialog.CustomDialog
 import com.example.crudfragmentandroid.ui.delete.adapter.recyclerdelete.AdapterDelete
 
 
@@ -25,30 +26,34 @@ class DeleteFragment : Fragment() {
         if (listCar.isEmpty()) {
             binding.recyclerDelete.visibility = View.GONE
             binding.cvDetailDelete.visibility = View.GONE
-            binding.tvTitle.text = "No items loaded"
+            "No items loaded".also { binding.tvTitle.text = it }
         } else {
             initRecyclerDelete(listCar)
             binding.recyclerDelete.visibility = View.VISIBLE
             binding.cvDetailDelete.visibility = View.VISIBLE
-            binding.tvTitle.text = "Checkout"
+            "Checkout".also { binding.tvTitle.text = it }
             printMount()
             binding.checkout.setOnClickListener {
-                listCar.forEach { it
-                    ProductRepository.deleteProductCar(it.first)
-                }
+                ProductRepository.deleteProductCar()
                 findNavController().navigate(R.id.action_deleteFragment_to_nav_home)
+                CustomDialog(
+                    "Su compra exitosa! :D",
+                    "KO",
+                    "",
+                    {},{}
+                ).show(parentFragmentManager,"Init_Dialog_Maintenace")
             }
 
         }
 
     }
-    fun printMount(){
+    private fun printMount(){
         var mount = 0.0F
         listCar.forEach {
            mount = it.first.cout * it.second
         }
-        binding.tvSubtotalProductPrice.text = "$ ${"%.2f".format(mount)}"
-        binding.tvTotalBuyPrice.text = "$ ${"%.2f".format(mount + 15)}"
+        "$ ${"%.2f".format(mount)}".also { binding.tvSubtotalProductPrice.text = it }
+        "$ ${"%.2f".format(mount + 15)}".also { binding.tvTotalBuyPrice.text = it }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,16 +63,12 @@ class DeleteFragment : Fragment() {
         return binding.root
 
     }
-    fun initRecyclerDelete(list: MutableList<Pair<Product, Int>>){
+    private fun initRecyclerDelete(list: MutableList<Pair<Product, Int>>){
       val adapterDelete = AdapterDelete(
           list
       )
       binding.recyclerDelete.adapter = adapterDelete
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
 }

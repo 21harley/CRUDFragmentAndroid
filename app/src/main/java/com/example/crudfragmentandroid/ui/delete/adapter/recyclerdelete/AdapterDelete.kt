@@ -9,7 +9,7 @@ import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.ItemRecyclerviewDeleteBinding
 import com.example.crudfragmentandroid.dto.producto.Product
 
-class AdapterDelete(val listDelete: MutableList<Pair<Product,Int>>) :
+class AdapterDelete(private val listDelete: MutableList<Pair<Product,Int>>) :
     RecyclerView.Adapter<ViewHolderDelete>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderDelete {
         val view: View = LayoutInflater.from(parent.context)
@@ -27,7 +27,7 @@ class AdapterDelete(val listDelete: MutableList<Pair<Product,Int>>) :
 }
 
 class ViewHolderDelete(private val view: View) : RecyclerView.ViewHolder(view) {
-    val binding = ItemRecyclerviewDeleteBinding.bind(view)
+    private val binding = ItemRecyclerviewDeleteBinding.bind(view)
     fun render(data: Pair<Product,Int>) {
 
         Glide
@@ -35,7 +35,7 @@ class ViewHolderDelete(private val view: View) : RecyclerView.ViewHolder(view) {
             .load(data.first.urlImg)
             .centerCrop()
             .placeholder(R.drawable.ic_launcher_background)
-            .into(binding.ivProduct);
+            .into(binding.ivProduct)
 
         binding.tvNameProduct.text = data.first.name
 
@@ -44,7 +44,7 @@ class ViewHolderDelete(private val view: View) : RecyclerView.ViewHolder(view) {
         binding.tvCountEdit.text = data.second.toString()
 
         val resultado = data.second * data.first.cout
-        binding.tvPrice.text = "$ ${"%.2f".format(resultado)}"
+        "$ ${"%.2f".format(resultado)}".also { binding.tvPrice.text = it }
 
         binding.btnAdd.visibility = View.GONE
         binding.btnRemove.visibility = View.GONE

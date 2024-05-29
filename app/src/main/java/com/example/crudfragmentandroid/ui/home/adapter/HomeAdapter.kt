@@ -1,15 +1,11 @@
 package com.example.crudfragmentandroid.ui.home.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudfragmentandroid.R
 import com.example.crudfragmentandroid.databinding.ItemHomeImgBinding
-import com.example.crudfragmentandroid.dto.dtohome.DataHomeItem
 import com.example.crudfragmentandroid.dto.producto.Product
 import com.example.crudfragmentandroid.dto.repository.ProductRepository
 import com.squareup.picasso.Picasso
@@ -30,7 +26,7 @@ class HomeAdapter(private var myList: List<Product>): RecyclerView.Adapter<MyVie
 
     fun updateData(newList: List<Product>) {
         myList = newList
-        notifyDataSetChanged()
+        //notifyDataSetChanged()
     }
 }
 
@@ -50,8 +46,8 @@ class MyViewHolder(view:View) : RecyclerView.ViewHolder(view) {
             imgHearLineGrey.setBackgroundResource(heart)
 
             imgHearLineGrey.setOnClickListener {
-                val heart = if(!product.like) R.drawable.heart2 else R.drawable.heart1
-                imgHearLineGrey.setBackgroundResource(heart)
+                val heart1 = if(!product.like) R.drawable.heart2 else R.drawable.heart1
+                imgHearLineGrey.setBackgroundResource(heart1)
                 product.like=!product.like
                 ProductRepository.updateProductInList(product)
             }
